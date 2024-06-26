@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consignment and Tracking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        #consignee{
+            margin-left: 20px;
+        }
+        #tracking{
+            margin-left: 20px;
+            
+        }
+        label {
+            display:block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        #main{
+            height: 350px;
+            width: 1200px;
+            border: 1px solid;
+            position: relative;
+        }
+        .submit-btn {
+            display: flex;
+            justify-content: center;
+            margin-right:50px;
+            margin-top:50px;
+        }
+        .submit-btn input {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            color:black;
+            background-color:  #4CAF50;
+            border: none;
+        }
+        #main1{
+            height: 300px;
+            width: 1200px;
+            border: 1px solid;
+            position: relative;
+        }
+        @media (min-width: 600px) {
+            label {
+                display: inline-block;
+                width: 120px;
+            }
+            input, select {
+                width: 200px;
+            }
+            table {
+                width: auto;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="main" class="main-class">
+    <h2 style="margin-left: 20px;">𝗖𝗼𝗻𝘀𝗶𝗴𝗻𝗲𝗲 𝗗𝗲𝘁𝗮𝗶𝗹𝘀</h2>
+    <table id="consignee">
+        <tr>
+            <td>
+                <div class="form-group">
+                    <label for="consigneeName"><b>Consignee Name:</b></label>
+                    <input type="text" id="consigneeName" name="consigneeName" required>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label for="pincode"><b>Pincode:</b></label>
+                    <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <label for="consigneeAddress"><b>Consignee Address:</b></label>
+                    <input type="text" id="consigneeAddress" name="consigneeAddress" required>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label for="invoiceNo"><b>Invoice No:</b></label>
+                    <input type="text" id="invoiceNo" name="invoiceNo" required>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <label for="phoneNo"><b>Phone No:</b></label>
+                    <input type="tel" id="phoneNo" name="phoneNo" pattern="[0-9]{10}" required>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label for="item"><b>Item:</b></label>
+                    <input type="text" id="item" name="item" required>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="main1">
+    <h2 style="margin-left: 20px;">𝗧𝗿𝗮𝗰𝗸𝗶𝗻𝗴 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻</h2>
+    <div class="form-group" style="margin-left: 20px;">
+        <label for="trackingService"><b>Tracking Service:</b></label>
+        <select id="trackingService" name="trackingService" required>
+            <option value="">Select Service</option>
+            <option value="fedex">FedEx</option>
+            <option value="dhl">DHL</option>
+            <option value="ups">UPS</option>
+            <option value="usps">USPS</option>
+        </select>
+    </div>
+    <div class="form-group" style="margin-left: 20px;">
+        <label for="trackingNo"><b>Tracking No:</b></label>
+        <input type="text" id="trackingNo" name="trackingNo" required>
+    </div>
+    <div class="submit-btn">
+        <input type="button" value="Save" onclick="saveForm()">
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        const consigneeName = document.getElementById('consigneeName').value;
+        const pincode = document.getElementById('pincode').value;
+        const consigneeAddress = document.getElementById('consigneeAddress').value;
+        const invoiceNo = document.getElementById('invoiceNo').value;
+        const phoneNo = document.getElementById('phoneNo').value;
+        const item = document.getElementById('item').value;
+        const trackingService = document.getElementById('trackingService').value;
+        const trackingNo = document.getElementById('trackingNo').value;
+
+        if (!consigneeName || !pincode || !consigneeAddress || !invoiceNo || !phoneNo || !item || !trackingService || !trackingNo) {
+            alert('Please fill in all required fields.');
+            return false;
+        }
+        if (!/^[0-9]{6}$/.test(pincode)) {
+            alert('Please enter a valid 6-digit pincode.');
+            return false;
+        }
+        if (!/^[0-9]{10}$/.test(phoneNo)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return false;
+        }
+        return true;
+    }
+
+    function saveForm() {
+        if (validateForm()) {
+            const formData = {
+                consigneeName: document.getElementById('consigneeName').value,
+                pincode: document.getElementById('pincode').value,
+                consigneeAddress: document.getElementById('consigneeAddress').value,
+                invoiceNo: document.getElementById('invoiceNo').value,
+                phoneNo: document.getElementById('phoneNo').value,
+                item: document.getElementById('item').value,
+                trackingService: document.getElementById('trackingService').value,
+                trackingNo: document.getElementById('trackingNo').value
+            };
+            console.log('Form Data:', formData);
+            alert('Form saved successfully!');
+            clearFormFields();
+            // Additional code to handle the form data can be added here
+        }
+    }
+
+    function clearFormFields() {
+        document.getElementById('consigneeName').value = '';
+        document.getElementById('pincode').value = '';
+        document.getElementById('consigneeAddress').value = '';
+        document.getElementById('invoiceNo').value = '';
+        document.getElementById('phoneNo').value = '';
+        document.getElementById('item').value = '';
+        document.getElementById('trackingService').value = '';
+        document.getElementById('trackingNo').value = '';
+    }
+</script>
+
+</body>
+</html>
